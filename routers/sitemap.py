@@ -3,7 +3,7 @@ from fastapi import APIRouter, Query
 
 from typing import Any, Annotated
 
-from ..dependencies import locate_sitemap_urls
+from dependencies import locate_sitemap_urls
 
 router = APIRouter(
     prefix="/sitemap",

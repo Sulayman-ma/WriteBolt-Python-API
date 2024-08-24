@@ -6,7 +6,7 @@ from typing import Any, Annotated
 from fastapi import APIRouter, Query, Response
 from fastapi.encoders import jsonable_encoder
 
-from ..dependencies import (
+from dependencies import (
     reorder,
     remove_keys,
 )

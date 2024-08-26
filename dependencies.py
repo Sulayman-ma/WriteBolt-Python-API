@@ -279,7 +279,7 @@ def crawl_sitemap_index(
         return None
 
 
-def locate_sitemap_urls(url: str) -> tuple[str, dict[str, list[str]]] | None:
+async def locate_sitemap_urls(url: str) -> tuple[str, dict[str, list[str]]] | None:
     """Full function
 
     1. Locates a website's sitemap URL starting with the addons method. If that fails, it moves on to parse the robots.txt file

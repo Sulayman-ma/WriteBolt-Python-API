@@ -53,7 +53,7 @@ async def search(
         endpoint = f"https://customsearch.googleapis.com/customsearch/v1?key={api_key}&cx={engine_id}&q={q}&num=10&start={page_index}"
 
         # Query API for search results
-        response = requests.get(endpoint)
+        response = await requests.get(endpoint)
 
         if response.status_code == 429:
             # return Response(

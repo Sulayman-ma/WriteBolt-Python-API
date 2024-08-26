@@ -2,6 +2,7 @@
 
 from typing import Any, Annotated
 from youtube_transcript_api import YouTubeTranscriptApi
+from youtube_transcript_api._errors import TranscriptsDisabled, NoTranscriptAvailable
 
 from fastapi import APIRouter, Query, Response
 
@@ -31,5 +32,23 @@ async def get_transcript(
 
         return transcript
 
+    except TranscriptsDisabled as e:
+        return {
+            "status": "failed",
+            "message": "Transcript disabled",
+            "error": e
+        }
+
+    except NoTranscriptAvailable as e:
+        return {
+            "status": "failed",
+            "message": "Transcript unavailable",
+            "error": e
+        }
+
     except Exception as e:
-        return "[]"
+        return {
+            "status": "failed",
+            "message": "Server exception",
+            "error": e
+        }

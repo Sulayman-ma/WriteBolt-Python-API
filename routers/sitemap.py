@@ -40,7 +40,7 @@ async def get_sitemap(
 
     try:
         # Get sitemap results
-        sitemap_result = locate_sitemap_urls(url)
+        sitemap_result = await locate_sitemap_urls(url)
 
         if sitemap_result:
             # Get sitemap URL and other URLs

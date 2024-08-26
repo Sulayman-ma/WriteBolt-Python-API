@@ -30,4 +30,4 @@ app.include_router(yt_transcript.router)
 
 @app.get("/")
 async def root():
-    return "You should not be here"
+    return "Root has nothing, press Ctrl+W."

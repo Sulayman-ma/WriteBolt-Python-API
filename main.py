@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from routers import search, links, sitemap, yt_transcript
+from .routers import search, links, sitemap, yt_transcript
 
 # FastAPI app instance
 app = FastAPI()

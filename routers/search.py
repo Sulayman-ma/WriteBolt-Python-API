@@ -4,9 +4,8 @@ import requests
 from typing import Any, Annotated
 
 from fastapi import APIRouter, Query, Response
-from fastapi.encoders import jsonable_encoder
 
-from dependencies import (
+from ..dependencies import (
     reorder,
     remove_keys,
 )
@@ -16,7 +15,6 @@ router = APIRouter(
     prefix="/search",
     tags=['search'],
     responses={
-        404: {"message": "Endpoint not found"},
         400: {"message": "Please include a query in your search"}
     }
 )
@@ -42,7 +40,7 @@ async def search(
     ]
 
     # Search limit
-    search_limit = 13
+    search_limit = 10
     limit_temp = search_limit
     # Start index for page results at 10 per page
     page_index = 1
@@ -56,13 +54,6 @@ async def search(
         response = requests.get(endpoint)
 
         if response.status_code == 429:
-            # return Response(
-            #     content=jsonable_encoder({
-            #         'status': 'failed',
-            #         'message': 'Quota exceeded for daily search limit',
-            #     }),
-            #     status_code=429
-            # )
             return {
                 'status': 'failed',
                 'message': 'Quota exceeded for daily search limit',
@@ -85,14 +76,6 @@ async def search(
 
     # Return 404 and failed message if results are empty
     if not complete_results:
-        # return Response(
-        #     content=jsonable_encoder({
-        #         'status': 'empty',
-        #         'resultsCount': 0,
-        #         'message': 'no search results for the query',
-        #     }),
-        #     status_code=404
-        # )
         return {
             'status': 'empty',
             'resultsCount': 0,
@@ -104,15 +87,6 @@ async def search(
 
     # Rearrange results to remove duplicates in every 10 blocks
     complete_results = reorder(complete_results[:search_limit])
-    # return Response(
-    #     content=jsonable_encoder({
-    #         'status': 'success',
-    #         'resultsCount': f'{len(complete_results)}',
-    #         'message': 'found results for this query',
-    #         'data': complete_results,
-    #     }),
-    #     status_code=200
-    # )
     return {
         'status': 'success',
         'resultsCount': f'{len(complete_results)}',

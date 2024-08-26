@@ -11,9 +11,6 @@ import requests.compat
 router = APIRouter(
     prefix="/blog-index",
     tags=['blog_index'],
-    responses={
-        404: {"message": "Endpoint not found"},
-    }
 )
 
 """Path Operations"""
@@ -115,6 +112,7 @@ async def blog_index(url: str) -> Response:
             blog_url = urljoin(url, 'blog')
 
         # Parse blog page for the 5 most recent blog posts
+        blog_url = urljoin(url, blog_url)
         blog_res = requests.get(
             url=blog_url,
             headers={

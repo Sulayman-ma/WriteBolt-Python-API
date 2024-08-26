@@ -3,13 +3,12 @@ from fastapi import APIRouter, Query
 
 from typing import Any, Annotated
 
-from dependencies import locate_sitemap_urls
+from ..dependencies import locate_sitemap_urls
 
 router = APIRouter(
     prefix="/sitemap",
     tags=['sitemap'],
     responses={
-        404: {"message": "Endpoint not found"},
         500: {
             "message": "Sitemap retrieval failed",
             "status": "Failed"

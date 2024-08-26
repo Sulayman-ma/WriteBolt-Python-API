@@ -23,7 +23,7 @@ async def get_transcript(
     """Takes a YouTube video's ID and retrieves the transcript from it."""
 
     try:
-        transcript = await YouTubeTranscriptApi.get_transcript(
+        transcript = YouTubeTranscriptApi.get_transcript(
             video_id=video_id, 
             languages=['en', 'hi', 'ur', 'es', 'fr', 'de', 'zh-Hans', 'zh-Hant', 'ar', 'pt', 'it', 'ja', 'ko']
         )

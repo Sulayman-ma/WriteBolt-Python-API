@@ -22,7 +22,7 @@ async def blog_index(url: str) -> Response:
     """Does a bunch of stuff which I will be absolutely sure to document later before pushing to production."""
 
     # URL response object
-    response = await requests.get(
+    response = requests.get(
         url=url,
         headers={
             'User-Agent': "WriteBolt-API"
@@ -115,7 +115,7 @@ async def blog_index(url: str) -> Response:
             blog_url = urljoin(url, 'blog')
 
         # Parse blog page for the 5 most recent blog posts
-        blog_res = await requests.get(
+        blog_res = requests.get(
             url=blog_url,
             headers={
                 'User-Agent': "WriteBolt-API"

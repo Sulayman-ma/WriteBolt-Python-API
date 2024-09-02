@@ -1,6 +1,6 @@
 """YouTube transcript router"""
 
-from typing import Any, Annotated
+from typing import Annotated
 from youtube_transcript_api import YouTubeTranscriptApi
 from youtube_transcript_api._errors import TranscriptsDisabled, NoTranscriptAvailable
 

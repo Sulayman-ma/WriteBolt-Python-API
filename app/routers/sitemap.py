@@ -1,9 +1,9 @@
 """Sitemaps router."""
 from fastapi import APIRouter, Query
 
-from typing import Any, Annotated
+from typing import Annotated
 
-from ..dependencies import locate_sitemap_urls
+from .utils import locate_sitemap_urls
 
 router = APIRouter(
     prefix="/sitemap",

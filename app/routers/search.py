@@ -5,7 +5,7 @@ from typing import Any, Annotated
 
 from fastapi import APIRouter, Query, Response
 
-from ..dependencies import (
+from .utils import (
     reorder,
     remove_keys,
 )
@@ -26,6 +26,8 @@ async def search(
 ) -> Response:
     """Google custom search engine API (and others to be added later on)"""
 
+    q = q.replace(" ", "+")
+
     # API key and search engine ID
     api_key = os.environ.get('GSE_KEY')
     engine_id = os.environ.get('GSE_ENGINE_ID')
@@ -40,10 +42,12 @@ async def search(
     ]
 
     # Search limit
-    search_limit = 10
+    search_limit = 30
     limit_temp = search_limit
+
     # Start index for page results at 10 per page
     page_index = 1
+
     # Page count tracker
     count = 1
     while limit_temp > 0:
@@ -53,10 +57,11 @@ async def search(
         # Query API for search results
         response = requests.get(endpoint)
 
-        if response.status_code == 429:
+        if response.status_code != 200:
+            response_data = response.json()
             return {
                 'status': 'failed',
-                'message': 'Quota exceeded for daily search limit',
+                'data': response_data
             }
 
         search_results = dict(response.json())
@@ -79,9 +84,9 @@ async def search(
         return {
             'status': 'empty',
             'resultsCount': 0,
-            'message': 'no search results for the query',
+            'message': 'no search results for the query'
         }
-    
+
     # Filter unneeded properties
     remove_keys(complete_results, remove_list)
 

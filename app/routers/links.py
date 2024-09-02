@@ -1,6 +1,6 @@
 import re
-from fastapi import Response
 import requests
+from fastapi import Response
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 
@@ -16,7 +16,7 @@ router = APIRouter(
 """Path Operations"""
 @router.get("/", status_code=200)
 async def blog_index(url: str) -> Response:
-    """Does a bunch of stuff which I will be absolutely sure to document later before pushing to production."""
+    """Refer to order requirements and dms."""
 
     # URL response object
     response = requests.get(
